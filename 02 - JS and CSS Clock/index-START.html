@@ -62,12 +62,32 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
     }
 
   </style>
 
   <script>
+    const secondsClass = document.querySelector('.second-hand');
+    const minutesClass = document.querySelector('.min-hand');
+    const hourClass = document.querySelector('.hour-hand');
+    function setClock() {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const secondsDegree = ((seconds / 60) * 365) + 90;
+      secondsClass.style.transform = `rotate(${secondsDegree}deg)`;
 
+      const minutes = now.getMinutes();
+      const minutesDegree = ((minutes / 60) * 365) + 90;
+      minutesClass.style.transform = `rotate(${minutesDegree}deg)`;
+
+      const hour = now.getHours() > 12 ? now.getHours() - 12 : now.getHours();
+      const hourDegree = ((hour / 12) * 365) + 90;
+      hourClass.style.transform = `rotate(${hourDegree}deg)`;
+    }
+    setInterval(setClock, 1000);
 
   </script>
 </body>
